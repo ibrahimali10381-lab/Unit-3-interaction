@@ -34,59 +34,31 @@ void draw() {
   background(selected);
 
   //red buttons
-  tactile(100, 150, 100, 50);
-  fill(lightred);
-  rect(100, 150, 100, 50);
-
-
-  tactile(100, 450, 100, 50);
-  fill(medred);
-  rect(100, 450, 100, 50);
-
-  tactile(100, 750, 100, 50);
-  fill(darkred);
-  rect(100, 750, 100, 50);
+  button(100, 150, 100, 50, lightred,1);
+  button(100, 450, 100, 50, medred,2);
+  button(100, 750, 100, 50, darkred,3);
 
   //green buttons
 
-  tactile(400, 150, 100, 50);
-  fill(lightgreen);
-  rect(400, 150, 100, 50);
-
-  tactile(400, 450, 100, 50);
-  fill(medgreen);
-  rect(400, 450, 100, 50);
-
-  tactile(400, 750, 100, 50);
-  fill(darkgreen);
-  rect(400, 750, 100, 50);
+  button(400, 150, 100, 50, lightgreen,4);
+  button(400, 450, 100, 50, medgreen,5);
+  button(400, 750, 100, 50, darkgreen,6);
 
   //blue buttons
+  button(700, 150, 100, 50, lightblue,7);
+  button(700, 450, 100, 50, medblue,8);
+  button(700, 750, 100, 50, darkblue,9);
 
-  tactile(700, 150, 100, 50);
-  fill(lightblue);
-  rect(700, 150, 100, 50);
 
-  tactile(700, 450, 100, 50);
-  fill(medblue);
-  rect(700, 450, 100, 50);
 
-  tactile(700, 750, 100, 50);
-  fill(darkblue);
-  rect(700, 750, 100, 50);
-  
-  
- 
-  on(112, 195, toggle,1);
-  on(412, 195, toggle,4);
-  on(712, 195, toggle,7);
-  on(112, 495, toggle,2);
-  on(412, 495, toggle,5);
-  on(712, 495, toggle,8);
-  on(112, 795, toggle,3);
-  on(412, 795, toggle,6);
-  on(712, 795, toggle,9);
 
+}
+
+void button(int x, int y, int w, int z, color select, int num) {
+  tactile(x, y, w, z);
+  fill(select);
+  rect(x, y, w, z);
+  on(x+12,y+45,toggle, num);
 }
 
 void tactile(int x, int y, int w, int z) {
@@ -105,29 +77,29 @@ void check(int x, int y, int w, int z, color chosen, int num) {
 }
 
 
-void on(int x, int y,int toggle, int num) {
+void on(int x, int y, int toggle, int num) {
   if (toggle == num) {
     textSize(75);
     fill(0);
-    text("on",x,y);
+    text("on", x, y);
   }
 }
 
 void mouseReleased() {
 
   //red buttons
-  check(100, 150, 100, 50, lightred,1);
-  check(100, 450, 100, 50, medred,2);
-  check(100, 750, 100, 50, darkred,3);
+  check(100, 150, 100, 50, lightred, 1);
+  check(100, 450, 100, 50, medred, 2);
+  check(100, 750, 100, 50, darkred, 3);
 
 
   //green buttons
-  check(400, 150, 100, 50, lightgreen,4);
-  check(400, 450, 100, 50, medgreen,5);
-  check(400, 750, 100, 50, darkgreen,6);
+  check(400, 150, 100, 50, lightgreen, 4);
+  check(400, 450, 100, 50, medgreen, 5);
+  check(400, 750, 100, 50, darkgreen, 6);
 
   //blue buttons
-  check(700, 150, 100, 50, lightblue,7);
-  check(700, 450, 100, 50, medblue,8);
-  check(700, 750, 100, 50, darkblue,9);
+  check(700, 150, 100, 50, lightblue, 7);
+  check(700, 450, 100, 50, medblue, 8);
+  check(700, 750, 100, 50, darkblue, 9);
 }
