@@ -10,6 +10,7 @@ color yellow = #FFFF00;
 color white = #FFFFFF;
 color black = #000000;
 PImage shocked;
+PImage save;
 
 //variables ============================================================
 boolean toolBarOn = false;
@@ -25,8 +26,11 @@ boolean shockedOn = false;
 //setup ================================================================
 void setup() {
   size(1000, 1000);
+  imageMode(CENTER);
   background(255);
   shocked = loadImage("meme.png");
+  save = loadImage("R.png");
+  
 }
 
 
@@ -88,12 +92,13 @@ void mouseReleased() {
 
 
     //New, load, save
-    if (mouseX> 700 && mouseX<750 && mouseY > 0 && mouseY <75) {
+    if (mouseX> 700 && mouseX<750 && mouseY > 0+start && mouseY <75+start) {
       background(white);
     }
-    if (mouseX> 800 && mouseX<850 && mouseY > 0 && mouseY <75) {
+    if (mouseX> 800 && mouseX<850 && mouseY > 0+start && mouseY <75+start) {
+      selectInput("Choose a file to load", "openImage");
     }
-    if (mouseX> 900 && mouseX<950 && mouseY > 0 && mouseY <75) {
+    if (mouseX> 900 && mouseX<950 && mouseY > 0+start && mouseY <75+start) {
       selectOutput("Choose a name for the file", "saveImage");
     }
   }
@@ -160,16 +165,21 @@ void tool_Bar_Open(int x, int y, int w, int z) {
     //Stamper
     stroke(0);
     strokeWeight(1);
-    rectButton(450, 20, 65, 60, yellow);
+    rectButton(450, 20, 65, 60, yellow, 1);
     image(shocked, 455, 20, 60, 60);
 
     //New, Load, Save
-    rect(700,25,50,50);
-    rect(800,25,50,50);
-    rect(900,25,50,50);
-    
-    
-    
+    rect(700, 25, 50, 50);
+
+
+    rect(800, 25, 50, 50);
+
+
+
+    rectButton(900, 25, 50, 50, yellow, 4);
+    image(save, 900, 25, 50, 50);
+
+
     stroke(selected);
     popMatrix();
   }
@@ -204,16 +214,16 @@ void circleButton(int x, int y, int r, color chosen) {
 
 //Rectangle Buttons ==========================================================================================
 
-void rectButton(int x, int y, int w, int z, color chosen) {
-  tactileRect(x, y, w, z, chosen);
+void rectButton(int x, int y, int w, int z, color chosen, int num) {
+  tactileRect(x, y, w, z, chosen, num);
   rect(x, y, w, z);
   fill(white);
 }
 
-void tactileRect(int x, int y, int w, int z, color chosen) {
+void tactileRect(int x, int y, int w, int z, color chosen, int num) {
   if (mouseX > x && mouseX< x+w && mouseY >start+y && mouseY < start+y+z) {
     fill(chosen);
-  } else if (shockedOn == true) {
+  } else if (shockedOn == true && num == 1) {
     fill(red);
   } else {
     fill(255);
@@ -248,10 +258,34 @@ void sackBoy(int x, int y, int w, int z) {
 
 //Save button ======================================================================================
 
-void saveImage(File f){
-  if (f != null && start == 0){
-   PImage canvas = get( 0,101, width-0,height-101);
-   canvas.save(f.getAbsolutePath());
+void saveImage(File f) {
+  if (f != null && start == 0) {
+    PImage canvas = get( 0, 101, width-0, height-101);
+    canvas.save(f.getAbsolutePath());
+  } else if (f != null && start == 900) {
+    PImage canvas = get( 0, 0, width-0, height-101);
+    canvas.save(f.getAbsolutePath());
   }
 }
 
+
+//Load button ========================================================================================
+
+
+void openImage(File f) {
+  if (f != null && start == 0) {
+    int n = 0;
+    while (n<10) {
+      PImage pic = loadImage(f.getPath());
+      image(pic, 500, 500);
+      n += 1;
+    }
+  } else if (f != null && start == 900) {
+    int n = 0;
+    while (n<10) {
+      PImage pic = loadImage(f.getPath());
+      image(pic, 500, 500);
+      n += 1;
+    }
+  }
+}
