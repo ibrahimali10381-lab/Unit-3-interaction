@@ -11,6 +11,8 @@ color white = #FFFFFF;
 color black = #000000;
 PImage shocked;
 PImage save;
+PImage clear;
+PImage load;
 
 //variables ============================================================
 boolean toolBarOn = false;
@@ -30,7 +32,8 @@ void setup() {
   background(255);
   shocked = loadImage("meme.png");
   save = loadImage("R.png");
-  
+  clear = loadImage("trahs.png");
+  load = loadImage("load.png");
 }
 
 
@@ -101,6 +104,7 @@ void mouseReleased() {
     if (mouseX> 900 && mouseX<950 && mouseY > 0+start && mouseY <75+start) {
       selectOutput("Choose a name for the file", "saveImage");
     }
+
   }
   popMatrix();
 }
@@ -127,6 +131,14 @@ void tactile_toolBar(int x, int y, int w, int z) {
     rect(x, y, w, z);
     stroke(0);
   }
+  if(start == 0){
+    fill(255);
+    triangle(480,10,507,40,535,10);
+    fill(0);
+    fill(255);
+    triangle(480,940,507,910,535,940);
+    fill(0);
+  }
 }
 
 
@@ -152,7 +164,6 @@ void tool_Bar_Open(int x, int y, int w, int z) {
     circleButton(100, 70, 15, cyan);
     circleButton(150, 70, 15, yellow);
     circleButton(200, 70, 15, black);
-
     //Slider
     drawnSliderX(250, 50, 100);
 
@@ -166,18 +177,20 @@ void tool_Bar_Open(int x, int y, int w, int z) {
     stroke(0);
     strokeWeight(1);
     rectButton(450, 20, 65, 60, yellow, 1);
-    image(shocked, 455, 20, 60, 60);
+    image(shocked, 485, 50, 60, 60);
 
     //New, Load, Save
     rect(700, 25, 50, 50);
+    image(clear, 725, 50, 50, 40);
 
 
     rect(800, 25, 50, 50);
+    image(load, 825, 50, 50, 40);
 
 
 
     rectButton(900, 25, 50, 50, yellow, 4);
-    image(save, 900, 25, 50, 50);
+    image(save, 925, 50, 50, 50);
 
 
     stroke(selected);
@@ -284,7 +297,7 @@ void openImage(File f) {
     int n = 0;
     while (n<10) {
       PImage pic = loadImage(f.getPath());
-      image(pic, 500, 500);
+      image(pic, 500, -500);
       n += 1;
     }
   }
