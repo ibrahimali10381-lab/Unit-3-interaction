@@ -53,18 +53,35 @@ void draw() {
 
 //Mouse drawing ================================================================
 void mouseDragged() {
-  //line drawing
-  if (shockedOn == false && pepeOn == false) {
-    stroke(selected);
-    strokeWeight(strokeStrength);
-    line(pmouseX, pmouseY, mouseX, mouseY);
-  }
+  if (start == 0 && mouseY >100) {
 
-  //Stamp draw
-  else if (shockedOn == true) {
-    image(shocked, mouseX, mouseY, sizeX, sizeY);
-  } else {
-    image(pepe, mouseX, mouseY, sizeX, sizeY);
+    //line drawing
+    if (shockedOn == false && pepeOn == false) {
+      stroke(selected);
+      strokeWeight(strokeStrength);
+      line(pmouseX, pmouseY, mouseX, mouseY);
+    }
+
+    //Stamp draw
+    else if (shockedOn == true) {
+      image(shocked, mouseX, mouseY, sizeX, sizeY);
+    } else {
+      image(pepe, mouseX, mouseY, sizeX, sizeY);
+    }
+  } else if (start == 900 && mouseY <900) {
+    //line drawing
+    if (shockedOn == false && pepeOn == false) {
+      stroke(selected);
+      strokeWeight(strokeStrength);
+      line(pmouseX, pmouseY, mouseX, mouseY);
+    }
+
+    //Stamp draw
+    else if (shockedOn == true) {
+      image(shocked, mouseX, mouseY, sizeX, sizeY);
+    } else {
+      image(pepe, mouseX, mouseY, sizeX, sizeY);
+    }
   }
   if (toolBarOn == true) {
     SliderX(55);
@@ -93,22 +110,11 @@ void mouseReleased() {
     checkCircle(200, 70, 30, black);
     checkCircle(200, 25, 30, white);
 
-    if (shockedOn == false && pepeOn == false) {
-      stroke(selected);
-      strokeWeight(strokeStrength);
-      line(pmouseX, pmouseY, mouseX, mouseY);
-    }
 
-    //Stamp draw
-    else if (shockedOn == true) {
-      image(shocked, mouseX, mouseY, sizeX, sizeY);
-    } else {
-      image(pepe, mouseX, mouseY, sizeX, sizeY);
-    }
     //Slider and Stamp
     SliderX(55);
     sackBoy(450, 20, 65, 60);
-    pepe(550,20,65,60);
+    pepe(550, 20, 65, 60);
 
 
     //New, load, save
@@ -121,8 +127,25 @@ void mouseReleased() {
     if (mouseX> 900 && mouseX<950 && mouseY > 0+start && mouseY <75+start) {
       selectOutput("Choose a name for the file", "saveImage");
     }
+
+    popMatrix();
+
+    if ( start == 0 && mouseY>100 || start == 900 && mouseY<900) {
+      //line draw
+      if (shockedOn == false && pepeOn == false) {
+        stroke(selected);
+        strokeWeight(strokeStrength);
+        line(pmouseX, pmouseY, mouseX, mouseY);
+      }
+
+      //Stamp draw
+      else if (shockedOn == true) {
+        image(shocked, mouseX, mouseY, sizeX, sizeY);
+      } else {
+        image(pepe, mouseX, mouseY, sizeX, sizeY);
+      }
+    }
   }
-  popMatrix();
 }
 
 
@@ -193,8 +216,8 @@ void tool_Bar_Open(int x, int y, int w, int z) {
     stroke(0);
     strokeWeight(1);
     rectButton(450, 20, 65, 60, yellow, 1);
-    image(shocked, 485, 50, 60, 60);    
-    
+    image(shocked, 485, 50, 60, 60);
+
     //Stamper Pepe
     stroke(0);
     strokeWeight(1);
@@ -258,7 +281,7 @@ void rectButton(int x, int y, int w, int z, color chosen, int num) {
 void tactileRect(int x, int y, int w, int z, color chosen, int num) {
   if (mouseX > x && mouseX< x+w && mouseY >start+y && mouseY < start+y+z) {
     fill(chosen);
-  } else if (shockedOn == true && num == 1) {
+  } else if (shockedOn == true && num == 1 || pepeOn == true && num == 5) {
     fill(red);
   } else {
     fill(255);
@@ -320,14 +343,14 @@ void openImage(File f) {
     int n = 0;
     while (n<10) {
       PImage pic = loadImage(f.getPath());
-      image(pic, 500, 500);
+      image(pic, 500, 550);
       n += 1;
     }
   } else if (f != null && start == 900) {
     int n = 0;
     while (n<10) {
       PImage pic = loadImage(f.getPath());
-      image(pic, 500, -500);
+      image(pic, 500, -450);
       n += 1;
     }
   }
