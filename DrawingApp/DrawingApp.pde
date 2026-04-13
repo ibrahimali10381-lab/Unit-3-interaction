@@ -10,6 +10,7 @@ color yellow = #FFFF00;
 color white = #FFFFFF;
 color black = #000000;
 PImage shocked;
+PImage pepe;
 PImage save;
 PImage clear;
 PImage load;
@@ -24,6 +25,7 @@ float sliderX = 250.0;
 int start = 0;
 boolean stop = false;
 boolean shockedOn = false;
+boolean pepeOn = false;
 
 //setup ================================================================
 void setup() {
@@ -31,6 +33,7 @@ void setup() {
   imageMode(CENTER);
   background(255);
   shocked = loadImage("meme.png");
+  pepe = loadImage("pepe.png");
   save = loadImage("R.png");
   clear = loadImage("trahs.png");
   load = loadImage("load.png");
@@ -51,15 +54,17 @@ void draw() {
 //Mouse drawing ================================================================
 void mouseDragged() {
   //line drawing
-  if (shockedOn == false) {
+  if (shockedOn == false && pepeOn == false) {
     stroke(selected);
     strokeWeight(strokeStrength);
     line(pmouseX, pmouseY, mouseX, mouseY);
   }
 
   //Stamp draw
-  else {
+  else if (shockedOn == true) {
     image(shocked, mouseX, mouseY, sizeX, sizeY);
+  } else {
+    image(pepe, mouseX, mouseY, sizeX, sizeY);
   }
   if (toolBarOn == true) {
     SliderX(55);
@@ -88,10 +93,22 @@ void mouseReleased() {
     checkCircle(200, 70, 30, black);
     checkCircle(200, 25, 30, white);
 
+    if (shockedOn == false && pepeOn == false) {
+      stroke(selected);
+      strokeWeight(strokeStrength);
+      line(pmouseX, pmouseY, mouseX, mouseY);
+    }
 
+    //Stamp draw
+    else if (shockedOn == true) {
+      image(shocked, mouseX, mouseY, sizeX, sizeY);
+    } else {
+      image(pepe, mouseX, mouseY, sizeX, sizeY);
+    }
     //Slider and Stamp
     SliderX(55);
     sackBoy(450, 20, 65, 60);
+    pepe(550,20,65,60);
 
 
     //New, load, save
@@ -104,7 +121,6 @@ void mouseReleased() {
     if (mouseX> 900 && mouseX<950 && mouseY > 0+start && mouseY <75+start) {
       selectOutput("Choose a name for the file", "saveImage");
     }
-
   }
   popMatrix();
 }
@@ -131,12 +147,12 @@ void tactile_toolBar(int x, int y, int w, int z) {
     rect(x, y, w, z);
     stroke(0);
   }
-  if(start == 0){
+  if (toolBarOn == false) {
     fill(255);
-    triangle(480,10,507,40,535,10);
+    triangle(480, 10, 507, 40, 535, 10);
     fill(0);
     fill(255);
-    triangle(480,940,507,910,535,940);
+    triangle(480, 940, 507, 910, 535, 940);
     fill(0);
   }
 }
@@ -173,18 +189,24 @@ void tool_Bar_Open(int x, int y, int w, int z) {
     strokeWeight(strokeStrength+5);
     line(400, 50, 401, 50);
 
-    //Stamper
+    //Stamper Sackboy
     stroke(0);
     strokeWeight(1);
     rectButton(450, 20, 65, 60, yellow, 1);
-    image(shocked, 485, 50, 60, 60);
+    image(shocked, 485, 50, 60, 60);    
+    
+    //Stamper Pepe
+    stroke(0);
+    strokeWeight(1);
+    rectButton(550, 20, 65, 60, yellow, 5);
+    image(pepe, 585, 52, 60, 60);
 
     //New, Load, Save
-    rect(700, 25, 50, 50);
+    rectButton(700, 25, 50, 50, yellow, 2);
     image(clear, 725, 50, 50, 40);
 
 
-    rect(800, 25, 50, 50);
+    rectButton(800, 25, 50, 50, yellow, 3);
     image(load, 825, 50, 50, 40);
 
 
@@ -266,6 +288,14 @@ void drawnSliderX(int x, int y, int w) {
 void sackBoy(int x, int y, int w, int z) {
   if (mouseX > x && mouseX< x+w && mouseY >start+y && mouseY < start+y+z) {
     shockedOn = !shockedOn;
+    pepeOn = false;
+  }
+}
+
+void pepe(int x, int y, int w, int z) {
+  if (mouseX > x && mouseX< x+w && mouseY >start+y && mouseY < start+y+z) {
+    pepeOn = !pepeOn;
+    shockedOn = false;
   }
 }
 
