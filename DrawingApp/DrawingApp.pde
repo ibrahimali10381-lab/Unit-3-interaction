@@ -14,6 +14,7 @@ PImage pepe;
 PImage save;
 PImage clear;
 PImage load;
+PImage icon;
 
 //variables ============================================================
 boolean toolBarOn = false;
@@ -37,6 +38,11 @@ void setup() {
   save = loadImage("R.png");
   clear = loadImage("trahs.png");
   load = loadImage("load.png");
+  icon = loadImage("logo.png");
+
+
+  surface.setTitle("Drawing App");
+  surface.setIcon(icon);
 }
 
 
@@ -228,11 +234,8 @@ void tool_Bar_Open(int x, int y, int w, int z) {
     rectButton(700, 25, 50, 50, yellow, 2);
     image(clear, 725, 50, 50, 40);
 
-
     rectButton(800, 25, 50, 50, yellow, 3);
     image(load, 825, 50, 50, 40);
-
-
 
     rectButton(900, 25, 50, 50, yellow, 4);
     image(save, 925, 50, 50, 50);
@@ -302,9 +305,11 @@ void SliderX(int y) {
 void drawnSliderX(int x, int y, int w) {
   line(x, y, x+w, y);
   fill(255);
+  if (mouseX>240 && mouseX<360 && mouseY < y+25+start && mouseY > y-25+start) {
+    fill(yellow);
+  }
   circle(sliderX, y, 30);
 }
-
 
 //Stamp tool =====================================================================================
 
