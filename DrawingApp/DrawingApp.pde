@@ -263,6 +263,8 @@ void tactileCircle(int x, int y, int r) {
 void checkCircle(int x, int y, int r, color chosen) {
   if (dist(x, y+start, mouseX, mouseY) < r) {
     selected = chosen;
+    pepeOn = false;
+    shockedOn = false;
   }
 }
 
