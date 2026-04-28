@@ -88,7 +88,7 @@ void mouseReleased() {
     check_canvas(width - 50, 475, 50, 75);
   } else {
     pushMatrix();
-    // This moves the "0" coordinate of the buttons to stay centered in the bar
+    // Circle buttons and sliders
     translate(width/2 - 500, start);
 
     checkCircle(50, 25, 30, red);
@@ -104,7 +104,7 @@ void mouseReleased() {
     sackBoy(450, 20, 65, 60);
     pepe(550, 20, 65, 60);
 
-    // Dynamic hit detection for New, Load, Save
+    // New, Load, Save
     float adj = width/2 - 500;
     if (mouseX > 700+adj && mouseX < 750+adj && mouseY > start && mouseY < 75+start) background(255);
     if (mouseX > 800+adj && mouseX < 850+adj && mouseY > start && mouseY < 75+start) selectInput("Load", "openImage");
@@ -118,7 +118,7 @@ void mouseReleased() {
   }
 }
 
-//Toolbar Logic ===============================================================================================
+//Toolbar Checking ===============================================================================================
 void check_toolBar(int x, int y, int w, int z) {
   if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + z && !toolBarOn) {
     toolBarOn = true;
@@ -150,6 +150,9 @@ void tactile_toolBar(int x, int y, int w, int z) {
   }
 }
 
+
+//Toolbar Drawing  ===============================================================================================
+
 void tool_Bar_Open(int x, int y, int w, int z) {
   tactile_toolBar(x, y, w, z);
   tactile_toolBar(x, y + 900, w, z);
@@ -163,6 +166,7 @@ void tool_Bar_Open(int x, int y, int w, int z) {
     fill(toolbar);
     rect(-width, 0, width * 3, 100); // Bar spans across entire width
 
+    //Circle buttons and Slider
     circleButton(50, 25, 15, red);
     circleButton(100, 25, 15, blue);
     circleButton(150, 25, 15, green);
@@ -178,6 +182,7 @@ void tool_Bar_Open(int x, int y, int w, int z) {
     strokeWeight(strokeStrength + 5);
     line(400, 50, 401, 50);
 
+    //Stamps
     stroke(0);
     strokeWeight(1);
     rectButton(450, 20, 65, 60, yellow, 1);
@@ -185,6 +190,9 @@ void tool_Bar_Open(int x, int y, int w, int z) {
 
     rectButton(550, 20, 65, 60, yellow, 5);
     if (pepe != null) image(pepe, 585, 52, 60, 60);
+
+
+    //New, Save, Load
 
     rectButton(700, 25, 50, 50, yellow, 2);
     if (clear != null) image(clear, 725, 50, 50, 40);
@@ -199,7 +207,7 @@ void tool_Bar_Open(int x, int y, int w, int z) {
   }
 }
 
-// Helpers =======================================================================================
+// Circle Buttons =======================================================================================
 
 void checkCircle(int x, int y, int r, color chosen) {
   float adjX = x + (width/2 - 500);
@@ -218,6 +226,8 @@ void circleButton(int x, int y, int r, color chosen) {
   circle(x, y, r * 2);
 }
 
+// Rectangle Buttons =======================================================================================
+
 void rectButton(int x, int y, int w, int z, color chosen, int num) {
   float adjX = x + (width/2 - 500);
   if (mouseX > adjX && mouseX < adjX + w && mouseY > start + y && mouseY < start + y + z) {
@@ -229,6 +239,8 @@ void rectButton(int x, int y, int w, int z, color chosen, int num) {
   }
   rect(x, y, w, z);
 }
+
+// Slider =======================================================================================
 
 void SliderX(int y) {
   float barStart = 250 + (width/2 - 500);
@@ -247,6 +259,9 @@ void drawnSliderX(int x, int y, int w) {
   circle(sliderX, y, 30);
 }
 
+
+// Stamos =======================================================================================
+
 void sackBoy(int x, int y, int w, int z) {
   float adjX = x + (width/2 - 500);
   if (mouseX > adjX && mouseX < adjX + w && mouseY > start + y && mouseY < start + y + z) {
@@ -263,7 +278,7 @@ void pepe(int x, int y, int w, int z) {
   }
 }
 
-// IO & Canvas ======================================================================================
+// Save, load ======================================================================================
 
 void saveImage(File f) {
   if (f != null) {
@@ -291,6 +306,9 @@ void openImage(File f) {
     }
   }
 }
+
+
+//Resize Canva =======================================================================================
 
 void canvasButton(int x) {
   fill(grey);
